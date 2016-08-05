@@ -84,6 +84,10 @@
 {
     [self closeWindow];
 
+    //Ensure m_oglView wont' be notified again. Because otherwise,
+    //as its m_requester was destroyed, it trigger a crash.
+    //(it is done in m_oglView dealloc method, but why it is not called?)
+    [[NSNotificationCenter defaultCenter] removeObserver:m_oglView];
     [m_view release];
     [m_oglView release];
 
